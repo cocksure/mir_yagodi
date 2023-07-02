@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
 {% block content %}
-
 
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
@@ -26,97 +23,54 @@
 		<div class="container">
 
 			<div class="row">
-                <div class="col-md-12">
-                    <div class="product-filters">
-                        <ul>
-                            <li class="active" data-filter="*">Все</li>
-                            <li data-filter=".strawberry">Клубника</li>
-                            <li data-filter=".berry">Малина</li>
-                            <li data-filter=".lemon">Смородина</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+			    <div class="col-md-12">
+			        <div class="product-filters">
+			            <ul>
+			                <li class="{% if not request.GET.category %}active{% endif %}">
+			                    <a href="{% url 'berries:shop-page' %}">Все</a>
+			                </li>
+			                {% for category in categories %}
+			                    <li class="{% if request.GET.category == category.pk %}active{% endif %}">
+			                        <a href="?category={{ category.pk }}">{{ category.name }}</a>
+			                    </li>
+			                {% endfor %}
+			            </ul>
+			        </div>
+			    </div>
+			</div>
 
 			<div class="row product-lists">
-				<div class="col-lg-4 col-md-6 text-center strawberry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'images/products/product-img-1.jpg' %}" alt=""></a>
-						</div>
-						<h3>Клубника</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
-						<a href="basket.html" class="cart-btn"><i class="fas fa-shopping-cart"></i>Добавить в корзину</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center berry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'images/products/product-img-2.jpg' %}" alt=""></a>
-						</div>
-						<h3>Малина</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="basket.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Добавить в корзину</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center lemon">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'images/products/product-img-3.jpg' %}" alt=""></a>
-						</div>
-						<h3>Смородина</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="basket.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Добавить в корзину</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src=" {% static 'images/products/product-img-4.jpg' %}" alt=""></a>
-						</div>
-						<h3>Авакадо</h3>
-						<p class="product-price"><span>Per Kg</span> 50$ </p>
-						<a href="basket.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Добавить в корзину</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'images/products/product-img-5.jpg' %}" alt=""></a>
-						</div>
-						<h3>Яблока</h3>
-						<p class="product-price"><span>Per Kg</span> 45$ </p>
-						<a href="basket.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Добавить в корзину</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center strawberry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'images/products/product-img-6.jpg' %}" alt=""></a>
-						</div>
-						<h3>Клубника</h3>
-						<p class="product-price"><span>Per Kg</span> 80$ </p>
-						<a href="basket.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Добавить в корзину</a>
-					</div>
-				</div>
+			    {% for berry in berries %}
+			        <div class="col-lg-4 col-md-6 text-center {{ berry.category.name|slugify }}">
+			            <div class="single-product-item">
+			                <div class="product-image">
+			                    <a href="{% url 'berries:single-page' %}"><img src="{{ berry.image.url }}" alt=""></a>
+			                </div>
+			                <h3>{{ berry }}</h3>
+			                <p class="product-price"><span>Per Kg</span>{{ berry.price }}</p>
+			                <a href="{% url 'berries:basket-page' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i>Добавить в корзину</a>
+			            </div>
+			        </div>
+			    {% endfor %}
 			</div>
 
 			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="pagination-wrap">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
+			    <div class="col-lg-12 text-center">
+			        <div class="pagination-wrap">
+			            <ul>
+			                <li><a href="{{ berries.previous_page_number }}">Prev</a></li>
+			                {% for num in berries.paginator.page_range %}
+			                    <li{% if berries.number == num %} class="active"{% endif %}>
+			                        <a href="?page={{ num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">{{ num }}</a>
+			                    </li>
+			                {% endfor %}
+			                <li><a href="{{ berries.next_page_number }}">Next</a></li>
+			            </ul>
+			        </div>
+			    </div>
 			</div>
+
 		</div>
 	</div>
-	<!-- end products -->
-
 
 {% endblock content %}

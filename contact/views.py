@@ -16,7 +16,7 @@ class ContactPageView(TemplateView):
         return render(request, 'contact.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = ContactForm(request.POST)
+        form = ContactForm(data=request.POST)
         if request.method == 'POST' and form.is_valid():
             form.save()
             messages.success(request, 'Сообщение успешно отправлено!')

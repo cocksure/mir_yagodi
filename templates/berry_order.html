@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Заказать</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- order form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+
+				 	<div id="form_status"></div>
+                    {% if messages %}
+                      <div class="alert alert-success" role="alert">
+                        {% for message in messages %}
+                          {{ message }}
+                        {% endfor %}
+                      </div>
+                      <script>
+                        setTimeout(function() {
+                          document.querySelector('.alert').style.display = 'none';
+                        }, 5000); // hide the alert after 5 seconds
+                      </script>
+                    {% endif %}
+					<div class="contact-form">
+                        <form method="post" id="fruitkha-contact" onSubmit="return valid_datas( this );" >
+                            {% csrf_token %}
+                            <p>
+                                {{ form.category }}
+                                {{ form.berry }}
+                            </p>
+                            <p>
+                                {{ form.amount }}
+                                {{ form.address }}
+                            </p>
+                            <p>
+                                {{ form.comment }}
+                            </p>
+                            <p>
+                                <input type="submit" value="Заказать" name="message">
+                            </p>
+                        </form>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
