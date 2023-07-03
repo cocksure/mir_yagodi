@@ -1,7 +1,8 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from berries.models import Orders, Berries, Categories
 
 from berries.forms import OrderBerryForm
@@ -17,9 +18,11 @@ class OrderCheckView(View):
         return render(request, 'checkout.html')
 
 
-class SingleProductView(View):
-    def get(self, request):
-        return render(request, 'single-product.html')
+class SingleProductView(DetailView):
+    model = Berries
+    template_name = 'single-product.html'
+    pk_url_kwarg = 'id'
+    context_object_name = 'berries'
 
 
 class BasketView(View):
@@ -46,6 +49,9 @@ class ShopView(ListView):
         return context
 
 
+import requests
+
+
 class BerryOrderView(TemplateView):
     template_name = 'berry_order.html'
 
@@ -57,17 +63,36 @@ class BerryOrderView(TemplateView):
         return render(request, 'berry_order.html', context)
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         form = OrderBerryForm(request.POST)
+
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+
+            # Отправка сообщения в Telegram-бот
+            bot_token = '6228144935:AAHvUWyWApFwqZasUbbhgH_oRWeHNG3Q2Cs'
+            chat_id = '-913715733'
+            message = "Новый заказ зарегистрирован!"
+            send_telegram_message(bot_token, chat_id, message)
+
+            messages.success(request, 'Заказ успешно регистрирован, мы скоро с вами свяжемся!')
+            return redirect(reverse('berries:berry-order'))
+
         context = {
             'form': form
         }
-        if request.method == 'POST' and form.is_valid():
-            form.save()
-            messages.success(request, 'Заказ успешно регистрирован, мы скоро с вами свяжемся!')
-            return render(request, 'berry_order.html', context)
-
         return render(request, 'berry_order.html', context)
+
+
+def send_telegram_message(bot_token, chat_id, message):
+    url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+    params = {
+        'chat_id': chat_id,
+        'text': message
+    }
+    response = requests.post(url, data=params)
+    if response.status_code != 200:
+        print('Не удалось отправить сообщение в Telegram')
+        print(response.text)
 
 
 class OrderListView(ListView):

@@ -44,7 +44,7 @@
 			        <div class="col-lg-4 col-md-6 text-center {{ berry.category.name|slugify }}">
 			            <div class="single-product-item">
 			                <div class="product-image">
-			                    <a href="{% url 'berries:single-page' %}"><img src="{{ berry.image.url }}" alt=""></a>
+			                    <a href="{% url 'berries:single-page' berry.id %}"><img src="{{ berry.image.url }}" alt=""></a>
 			                </div>
 			                <h3>{{ berry }}</h3>
 			                <p class="product-price"><span>Per Kg</span>{{ berry.price }}</p>

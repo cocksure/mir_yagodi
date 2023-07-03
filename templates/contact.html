@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% load static %}
 
 {% block content %}
@@ -28,27 +27,36 @@
 				<div class="col-lg-8 mb-5 mb-lg-0">
 					<div class="form-title">
 						<h2>Есть вопросы?</h2>
-{#						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>#}
 					</div>
 				 	<div id="form_status"></div>
+                    {% if messages %}
+                      <div class="alert alert-success" role="alert">
+                        {% for message in messages %}
+                          {{ message }}
+                        {% endfor %}
+                      </div>
+                      <script>
+                        setTimeout(function() {
+                          document.querySelector('.alert').style.display = 'none';
+                        }, 5000); // hide the alert after 5 seconds
+                      </script>
+                    {% endif %}
 					<div class="contact-form">
-                        <form method="post" >
-                            {% csrf_token %}
-                            {{ form.as_p | crispy }}
-{#                            <p>#}
-{#                                <input type="text" placeholder="Имя" name="name" id="name">#}
-{#                                <input type="email" placeholder="Почта" name="email" id="email">#}
-{#                            </p>#}
-{#                            <p>#}
-{#                                <input type="tel" placeholder="Телефон" name="phone" id="phone">#}
-{#                                <input type="text" placeholder="Предмет" name="subject" id="subject">#}
-{#                            </p>#}
-{#                            <p>#}
-{#                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Текст"></textarea>#}
-{#                            </p>#}
-{#                            <p>#}
-{#                                <input type="submit" value="Отправить" name="message">#}
-{#                            </p>#}
+                        <form method="post">{% csrf_token %}
+                            <p>
+                                <input type="text" placeholder="Имя" name="name" id="name">
+                                <input type="email" placeholder="Почта" name="email" id="email">
+                            </p>
+                            <p>
+                                <input type="tel" placeholder="Телефон" name="phone" id="phone">
+                                <input type="text" placeholder="Предмет" name="subject" id="subject">
+                            </p>
+                            <p>
+                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Текст"></textarea>
+                            </p>
+                            <p>
+                                <input type="submit" value="Отправить" name="message">
+                            </p>
                         </form>
 
 					</div>

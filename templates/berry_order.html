@@ -40,15 +40,29 @@
 					<div class="contact-form">
                         <form method="post" id="fruitkha-contact" onSubmit="return valid_datas( this );" >
                             {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="{{ label.category }}">Категория</label>
+                                    {{ form.category }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ label.berry }}">Ягода</label>
+                                    {{ form.berry }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 w-100">
+                                    <label for="{{ label.amount }}">Количество</label>
+                                    {{ form.amount }}
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="{{ label.address }}">Адрес доставки</label>
+                                    {{ form.address }}
+                                </div>
+                            </div>
                             <p>
-                                {{ form.category }}
-                                {{ form.berry }}
-                            </p>
-                            <p>
-                                {{ form.amount }}
-                                {{ form.address }}
-                            </p>
-                            <p>
+                                <label for="{{ label.comment }}">Коммент</label>
                                 {{ form.comment }}
                             </p>
                             <p>
