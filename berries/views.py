@@ -50,7 +50,6 @@ class ShopView(ListView):
 
         # Add pagination data
 
-
         return context
 
 
@@ -173,8 +172,3 @@ class OrderListView(ListView):
     template_name = "order_list.html"
     queryset = Orders.objects.all()
     context_object_name = "orders"
-
-
-
-
-

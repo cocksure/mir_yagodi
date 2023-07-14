@@ -3,7 +3,8 @@ from .models import CustomUser, Categories, Berries, Orders2
 
 
 class OrderBerryForm2(forms.ModelForm):
-    category = forms.ModelChoiceField(queryset=Categories.objects.all(), widget=forms.Select(attrs={'class': 'form-control mb-3'}))
+    category = forms.ModelChoiceField(queryset=Categories.objects.all(),
+                                      widget=forms.Select(attrs={'class': 'form-control mb-3'}))
     berry = forms.ModelChoiceField(queryset=Berries.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
     amount = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -40,4 +41,3 @@ class OrderBerryForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('name', 'email', 'address', 'phone_number', 'comment')
-

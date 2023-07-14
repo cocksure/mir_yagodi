@@ -33,8 +33,3 @@ class CustomAuthenticationForm(AuthenticationForm):
         # Внесите изменения в поля формы здесь
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['class'] = 'form-control'
-
-
-
-
-

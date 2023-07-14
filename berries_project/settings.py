@@ -1,22 +1,24 @@
 from pathlib import Path
+from environ import Env
+
+env = Env()
+env.read_env('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qe@n$p@chv1s^ki-4rs&%xgvb(w21$&1+ywh5p%+hy27x-gd&w'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = "users:login"
-
 
 # Application definition
 
@@ -35,7 +37,6 @@ INSTALLED_APPS = [
     'users',
 
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'berries_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -78,7 +78,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -98,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -112,15 +110,11 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "users.CustomUser"
 
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-
-
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -132,28 +126,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+
 # CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000/", ]
 
 
-def verified_callback(user): #Emailni tasdiqlash funkisiyasi
+def verified_callback(user):  # Emailni tasdiqlash funkisiyasi
     user.is_active = True
 
 
-EMAIL_VERIFIED_CALLBACK = verified_callback  #qachonki funksiya to'g'ri bajarilganda yuqoridagi funksiyani ishga tushuradi.
+EMAIL_VERIFIED_CALLBACK = verified_callback  # qachonki funksiya to'g'ri bajarilganda yuqoridagi funksiyani ishga tushuradi.
 EMAIL_FROM_ADDRESS = 'AdaptaMail@gmail.com'
-EMAIL_MAIL_SUBJECT = 'Confirm your email, {{user.username}}' # Email xabarnoma nomi
-EMAIL_MAIL_HTML = 'mail_body.html'  #Email tasdiqlash sahifasi
-EMAIL_MAIL_PLAIN = 'mail_body.txt' # Emailga jo'natiladigan asosiy matn
-EMAIL_TOKEN_LIFE = 60 * 60 #Tokenni eskitish vaqti
-EMAIL_PAGE_TEMPLATE = 'confirm_template.html'  #Tasdiqlangan keyingi satusni ko'rsatib turadigan sahifa
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'   #Domain
+EMAIL_MAIL_SUBJECT = 'Confirm your email, {{user.username}}'  # Email xabarnoma nomi
+EMAIL_MAIL_HTML = 'mail_body.html'  # Email tasdiqlash sahifasi
+EMAIL_MAIL_PLAIN = 'mail_body.txt'  # Emailga jo'natiladigan asosiy matn
+EMAIL_TOKEN_LIFE = 60 * 60  # Tokenni eskitish vaqti
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'  # Tasdiqlangan keyingi satusni ko'rsatib turadigan sahifa
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'  # Domain
 EMAIL_MULTI_USER = True  # optional (defaults to False)
 
 # For Django Email Backend
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' #Konsolga chiqarib turadi.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Konsolga chiqarib turadi.
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'AdaptaMail@gmail.com'
 EMAIL_HOST_PASSWORD = 'uheqxjowmcqdoich'
 EMAIL_USE_TLS = True
-

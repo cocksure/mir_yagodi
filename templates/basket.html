@@ -5,48 +5,48 @@
 
 {% block content %}
 
-<!-- breadcrumb-section -->
-<div class="breadcrumb-section breadcrumb-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-center">
-                <div class="breadcrumb-text">
-                    <p>Свежий и органический</p>
-                    <h1>Корзина</h1>
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Свежий и органический</p>
+                        <h1>Корзина</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end breadcrumb section -->
+    <!-- end breadcrumb section -->
 
-<!-- cart -->
+    <!-- cart -->
 
-<div class="cart-section mt-150 mb-150">
-    <div class="container">
+    <div class="cart-section mt-150 mb-150">
+        <div class="container">
 
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
 
-        <script>
-            setTimeout(function () {
-                var alerts = document.querySelectorAll('.alert');
-                for (var i = 0; i < alerts.length; i++) {
-                    alerts[i].style.display = 'none';
-                }
-            }, 5000); // Скрыть сообщения через 5 секунд
-        </script>
-        {% endif %}
+                <script>
+                    setTimeout(function () {
+                        var alerts = document.querySelectorAll('.alert');
+                        for (var i = 0; i < alerts.length; i++) {
+                            alerts[i].style.display = 'none';
+                        }
+                    }, 5000); // Скрыть сообщения через 5 секунд
+                </script>
+            {% endif %}
 
-        <div class="row">
-            <div class="col-lg-8 col-md-12">
-                <div class="cart-table-wrap">
-                    <table class="cart-table">
-                        <thead class="cart-table-head">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="cart-table-wrap">
+                        <table class="cart-table">
+                            <thead class="cart-table-head">
                             <tr class="table-head-row">
                                 <th class="product-remove"></th>
                                 <th class="product-image">Изображение продукта</th>
@@ -55,55 +55,58 @@
                                 <th class="product-quantity">Количество</th>
                                 <th class="product-total">Общий</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             {% for berry in berries %}
-                            <tr class="table-body-row">
-                                <td class="product-remove">
-                                    <a href="{% url 'berries:remove-from-basket' berry.id %}">
-                                        <i class="far fa-window-close"></i>
-                                    </a>
-                                </td>
+                                <tr class="table-body-row">
+                                    <td class="product-remove">
+                                        <a href="{% url 'berries:remove-from-basket' berry.id %}">
+                                            <i class="far fa-window-close"></i>
+                                        </a>
+                                    </td>
 
-                                {% with berry_image=berry.berryimage_set.first %}
-                                {% if berry_image %}
-                                <td class="product-image"><img src="{{ berry_image.image.url }}" alt=""></td>
-                                {% else %}
-                                <td class="product-image"><img src="{% static 'path/to/placeholder/image.jpg' %}" alt="No Image"></td>
-                                {% endif %}
-                                {% endwith %}
+                                    {% with berry_image=berry.berryimage_set.first %}
+                                        {% if berry_image %}
+                                            <td class="product-image"><img src="{{ berry_image.image.url }}" alt="">
+                                            </td>
+                                        {% else %}
+                                            <td class="product-image"><img
+                                                    src="{% static 'path/to/placeholder/image.jpg' %}" alt="No Image">
+                                            </td>
+                                        {% endif %}
+                                    {% endwith %}
 
-                                <td class="product-name">{{ berry.name }}</td>
-                                <td class="product-price">{{ berry.price }}</td>
-                                <td class="product-quantity">
-                                    <input type="number" name="quantity" class="quantity-input" value="1" min="1">
-                                </td>
-                                <td class="product-total">
-                                    $<span class="item-total">{{ berry.price }}</span>
-                                </td>
-                            </tr>
+                                    <td class="product-name">{{ berry.name }}</td>
+                                    <td class="product-price">{{ berry.price }}</td>
+                                    <td class="product-quantity">
+                                        <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                                    </td>
+                                    <td class="product-total">
+                                        $<span class="item-total">{{ berry.price }}</span>
+                                    </td>
+                                </tr>
                             {% empty %}
-                            <tr>
-                                <td colspan="6">Ваша корзина пуста.</td>
-                            </tr>
+                                <tr>
+                                    <td colspan="6">Ваша корзина пуста.</td>
+                                </tr>
                             {% endfor %}
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="col-lg-4">
-                <div class="total-section">
-                    <table class="total-table">
-                        <thead class="total-table-head">
+                <div class="col-lg-4">
+                    <div class="total-section">
+                        <table class="total-table">
+                            <thead class="total-table-head">
                             <tr class="table-total-row">
                                 <th>Общий</th>
                                 <th>Цена</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr class="total-data">
                                 <td><strong>Итого: </strong></td>
                                 <td id="subtotal"></td>
@@ -116,21 +119,21 @@
                                 <td><strong>Всего/Итого:</strong></td>
                                 <td id="total"></td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <div class="cart-buttons">
-                        <a href="{% url 'berries:basket-page' %}" class="boxed-btn">Обновить корзину</a>
-                        <a href="{% url 'berries:order-check' %}" class="boxed-btn black">Проверить</a>
+                            </tbody>
+                        </table>
+                        <div class="cart-buttons">
+                            <a href="{% url 'berries:basket-page' %}" class="boxed-btn">Обновить корзину</a>
+                            <a href="{% url 'berries:order-check' %}" class="boxed-btn black">Проверить</a>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end cart -->
+    <!-- end cart -->
 
-<!-- Подключение JavaScript-файла -->
-<script src="{% static 'css/main.css' %}"></script>
+    <!-- Подключение JavaScript-файла -->
+    <script src="{% static 'css/main.css' %}"></script>
 
 {% endblock content %}

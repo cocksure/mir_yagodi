@@ -12,32 +12,32 @@ class BerriesImageInline(admin.TabularInline):
 class BerriesAdmin(admin.ModelAdmin):
     inlines = [BerriesImageInline]
     list_display = ('id', 'name', 'category', 'price')
-    list_filter = ('category', )
-    search_fields = ('name', )
+    list_filter = ('category',)
+    search_fields = ('name',)
 
 
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', )
-    search_fields = ('name', )
+    list_display = ('id', 'name',)
+    search_fields = ('name',)
 
 
 @admin.register(Units)
 class UnitsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', )
+    list_display = ('id', 'name',)
 
 
 @admin.register(Currency)
 class CurrencyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', )
+    list_display = ('id', 'name',)
 
 
 @admin.register(Orders)
 class OrdersAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'phone_number', 'address')
-    search_fields = ('name', )
+    search_fields = ('name',)
 
 
 @admin.register(Basket)
 class BasketAdmin(admin.ModelAdmin):
-    list_display = ('id', 'berry', )
+    list_display = ('id', 'berry',)
