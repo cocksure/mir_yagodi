@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-lg">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h1>Войти</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <div class="container mt-5">
+        {% if messages %}
+            <div class="alert alert-success" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 5000); // hide the alert after 5 seconds
+            </script>
+        {% endif %}
+
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <form method="post" action="{% url 'users:login' %}">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <button class="btn btn-primary w-100 mb-4" type="submit">Submit</button>
+                    <span>Нет аккаунта? Тогда пройдите <a href="{% url 'users:register' %}">регистрацию</a></span>
+                </form>
+            </div>
+        </div><hr>
+    </div>
+
+{% endblock content %}

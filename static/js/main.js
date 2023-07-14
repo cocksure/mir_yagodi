@@ -166,3 +166,63 @@
 
 
 }(jQuery));
+
+$(document).ready(function() {
+        // При изменении выбранной категории обновляем список ягод
+        $('#id_category').change(function() {
+            var categoryId = $(this).val();
+
+            $.ajax({
+                url: "{% url 'berries:get-berries-by-category' %}",
+                type: 'GET',
+                data: {'category_id': categoryId},
+                success: function(response) {
+                    $('#id_berry').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Функция для обновления общей суммы для каждого товара
+    function updateItemTotal() {
+        var row = this.closest('.table-body-row');
+        var price = parseFloat(row.querySelector('.product-price').textContent);
+        var quantity = parseInt(this.value);
+        var itemTotal = row.querySelector('.item-total');
+        itemTotal.textContent = (price * quantity).toFixed(2);
+
+        // Обновление общей суммы
+        var subtotals = document.querySelectorAll('.item-total');
+        var subtotal = 0;
+        subtotals.forEach(function(subtotalElement) {
+            subtotal += parseFloat(subtotalElement.textContent);
+        });
+        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+        document.getElementById('total').textContent = (subtotal + 10).toFixed(2); // Добавляем сумму доставки (45)
+
+        // Сохранение значения количества в localStorage
+        var itemId = row.getAttribute('data-item-id');
+        localStorage.setItem(itemId, this.value);
+    }
+
+    // Восстановление значений количества ягод из localStorage при загрузке страницы
+    var inputs = document.querySelectorAll('.quantity-input');
+    inputs.forEach(function(input) {
+        var itemId = input.closest('.table-body-row').getAttribute('data-item-id');
+        var savedValue = localStorage.getItem(itemId);
+        if (savedValue !== null) {
+            input.value = savedValue;
+        } else {
+            input.value = 1;
+        }
+    });
+
+    // Обработчик события изменения количества
+    inputs.forEach(function(input) {
+        input.addEventListener('change', updateItemTotal);
+    });
+});

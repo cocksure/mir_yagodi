@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{%  load static %}
+
+{% block title %} Профиль {% endblock title %}
+
+
+{% block content %}
+        <!-- breadcrumb-section -->
+        <div class="breadcrumb-section breadcrumb-lg">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <h1>Профиль</h1>
+                    </div>
+                </div>
+            </div>
+        </div>>
+	<!-- end breadcrumb section -->
+
+        <div class="container text-center">
+
+        <img class="profile-pic mb-4" src="{% static 'images/avaters/default-profile_pic.png' %}" alt="Profile picture">
+            <div class="row justify-content-center mb-5">
+                <div class="col-4">
+                    <h5>{{ user.username }}</h5>
+                    <h5>{{ user.phone_number }}</h5>
+                    <h5>{{ user.email }}</h5>
+                </div>
+            </div><hr>
+        </div>
+
+{% endblock content %}
