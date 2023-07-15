@@ -4,12 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
 from users.forms import UserCreateForm, CustomAuthenticationForm
-from users.models import CustomUser
 
-from django.contrib.auth import get_user_model
-from django_email_verification import send_email
 from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import make_password, check_password
 
 
 class RegisterView(View):
