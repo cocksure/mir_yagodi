@@ -1,26 +1,26 @@
 (function ($) {
     "use strict";
 
-    $(document).ready(function($){
-        
+    $(document).ready(function ($) {
+
         // testimonial sliders
         $(".testimonial-sliders").owlCarousel({
             items: 1,
             loop: true,
             autoplay: true,
-            responsive:{
-                0:{
-                    items:1,
-                    nav:false
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
                 },
-                600:{
-                    items:1,
-                    nav:false
+                600: {
+                    items: 1,
+                    nav: false
                 },
-                1000:{
-                    items:1,
-                    nav:false,
-                    loop:true
+                1000: {
+                    items: 1,
+                    nav: false,
+                    loop: true
                 }
             }
         });
@@ -33,21 +33,21 @@
             nav: true,
             dots: false,
             navText: ['<i class="fas fa-angle-left"></i>', '<i class="fas fa-angle-right"></i>'],
-            responsive:{
-                0:{
-                    items:1,
-                    nav:false,
-                    loop:true
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false,
+                    loop: true
                 },
-                600:{
-                    items:1,
-                    nav:true,
-                    loop:true
+                600: {
+                    items: 1,
+                    nav: true,
+                    loop: true
                 },
-                1000:{
-                    items:1,
-                    nav:true,
-                    loop:true
+                1000: {
+                    items: 1,
+                    nav: true,
+                    loop: true
                 }
             }
         });
@@ -58,36 +58,36 @@
             loop: true,
             autoplay: true,
             margin: 30,
-            responsive:{
-                0:{
-                    items:1,
-                    nav:false
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
                 },
-                600:{
-                    items:3,
-                    nav:false
+                600: {
+                    items: 3,
+                    nav: false
                 },
-                1000:{
-                    items:4,
-                    nav:false,
-                    loop:true
+                1000: {
+                    items: 4,
+                    nav: false,
+                    loop: true
                 }
             }
         });
 
         // count down
-        if($('.time-countdown').length){  
-            $('.time-countdown').each(function() {
-            var $this = $(this), finalDate = $(this).data('countdown');
-            $this.countdown(finalDate, function(event) {
-                var $this = $(this).html(event.strftime('' + '<div class="counter-column"><div class="inner"><span class="count">%D</span>Days</div></div> ' + '<div class="counter-column"><div class="inner"><span class="count">%H</span>Hours</div></div>  ' + '<div class="counter-column"><div class="inner"><span class="count">%M</span>Mins</div></div>  ' + '<div class="counter-column"><div class="inner"><span class="count">%S</span>Secs</div></div>'));
+        if ($('.time-countdown').length) {
+            $('.time-countdown').each(function () {
+                var $this = $(this), finalDate = $(this).data('countdown');
+                $this.countdown(finalDate, function (event) {
+                    var $this = $(this).html(event.strftime('' + '<div class="counter-column"><div class="inner"><span class="count">%D</span>Days</div></div> ' + '<div class="counter-column"><div class="inner"><span class="count">%H</span>Hours</div></div>  ' + '<div class="counter-column"><div class="inner"><span class="count">%M</span>Mins</div></div>  ' + '<div class="counter-column"><div class="inner"><span class="count">%S</span>Secs</div></div>'));
+                });
             });
-         });
         }
 
         // projects filters isotop
         $(".product-filters li").on('click', function () {
-            
+
             $(".product-filters li").removeClass("active");
             $(this).addClass("active");
 
@@ -96,9 +96,9 @@
             $(".product-lists").isotope({
                 filter: selector,
             });
-            
+
         });
-        
+
         // isotop inner
         $(".product-lists").isotope();
 
@@ -123,19 +123,21 @@
         });
 
         // homepage slides animations
-        $(".homepage-slider").on("translate.owl.carousel", function(){
+        $(".homepage-slider").on("translate.owl.carousel", function () {
             $(".hero-text-tablecell .subtitle").removeClass("animated fadeInUp").css({'opacity': '0'});
-            $(".hero-text-tablecell h1").removeClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.3s'});
-            $(".hero-btns").removeClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.5s'});
+            $(".hero-text-tablecell h1").removeClass("animated fadeInUp").css({
+                'opacity': '0',
+                'animation-delay': '0.3s'
+            });
+            $(".hero-btns").removeClass("animated fadeInUp").css({'opacity': '0', 'animation-delay': '0.5s'});
         });
 
-        $(".homepage-slider").on("translated.owl.carousel", function(){
+        $(".homepage-slider").on("translated.owl.carousel", function () {
             $(".hero-text-tablecell .subtitle").addClass("animated fadeInUp").css({'opacity': '0'});
-            $(".hero-text-tablecell h1").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.3s'});
-            $(".hero-btns").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.5s'});
+            $(".hero-text-tablecell h1").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay': '0.3s'});
+            $(".hero-btns").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay': '0.5s'});
         });
 
-       
 
         // stikcy js
         $("#sticker").sticky({
@@ -147,46 +149,46 @@
             meanMenuContainer: '.mobile-menu',
             meanScreenWidth: "992"
         });
-        
-         // search form
-        $(".search-bar-icon").on("click", function(){
+
+        // search form
+        $(".search-bar-icon").on("click", function () {
             $(".search-area").addClass("search-active");
         });
 
-        $(".close-btn").on("click", function() {
+        $(".close-btn").on("click", function () {
             $(".search-area").removeClass("search-active");
         });
-    
+
     });
 
 
-    jQuery(window).on("load",function(){
+    jQuery(window).on("load", function () {
         jQuery(".loader").fadeOut(1000);
     });
 
 
 }(jQuery));
 
-$(document).ready(function() {
-        // При изменении выбранной категории обновляем список ягод
-        $('#id_category').change(function() {
-            var categoryId = $(this).val();
+$(document).ready(function () {
+    // При изменении выбранной категории обновляем список ягод
+    $('#id_category').change(function () {
+        var categoryId = $(this).val();
 
-            $.ajax({
-                url: "{% url 'berries:get-berries-by-category' %}",
-                type: 'GET',
-                data: {'category_id': categoryId},
-                success: function(response) {
-                    $('#id_berry').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
+        $.ajax({
+            url: "{% url 'berries:get-berries-by-category' %}",
+            type: 'GET',
+            data: {'category_id': categoryId},
+            success: function (response) {
+                $('#id_berry').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
         });
     });
+});
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Функция для обновления общей суммы для каждого товара
     function updateItemTotal() {
         var row = this.closest('.table-body-row');
@@ -198,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Обновление общей суммы
         var subtotals = document.querySelectorAll('.item-total');
         var subtotal = 0;
-        subtotals.forEach(function(subtotalElement) {
+        subtotals.forEach(function (subtotalElement) {
             subtotal += parseFloat(subtotalElement.textContent);
         });
         document.getElementById('subtotal').textContent = subtotal.toFixed(2);
@@ -211,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Восстановление значений количества ягод из localStorage при загрузке страницы
     var inputs = document.querySelectorAll('.quantity-input');
-    inputs.forEach(function(input) {
+    inputs.forEach(function (input) {
         var itemId = input.closest('.table-body-row').getAttribute('data-item-id');
         var savedValue = localStorage.getItem(itemId);
         if (savedValue !== null) {
@@ -222,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Обработчик события изменения количества
-    inputs.forEach(function(input) {
+    inputs.forEach(function (input) {
         input.addEventListener('change', updateItemTotal);
     });
 });

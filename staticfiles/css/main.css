@@ -1049,15 +1049,6 @@ a.video-play-btn:hover {
     color: #F28123;
 }
 
-.latest-news-bg {
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-}
-
-.single-latest-news:hover .latest-news-bg {
-    opacity: 0.8;
-}
 
 a.tof-btn {
     -webkit-transition: 0.3s;
@@ -1077,21 +1068,6 @@ a.tof-btn:hover {
 
 a.tof-btn:hover i {
     margin-left: 10px;
-}
-
-.single-latest-news {
-    -webkit-box-shadow: 0 0 20px #dddddd;
-    box-shadow: 0 0 20px #dddddd;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-}
-
-.single-latest-news:hover {
-    -webkit-box-shadow: 0 0 0;
-    box-shadow: 0 0 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
 }
 
 .single-logo-item {
@@ -1214,7 +1190,6 @@ div.owl-controls div.owl-nav div:hover {
     color: #6f6f6f;
     cursor: not-allowed;
 }
-
 
 
 .icons a i {
